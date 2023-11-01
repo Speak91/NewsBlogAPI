@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using NewsBlogAPI.Data.Interfaces;
 using NewsBlogAPI.Data.Repository;
+using NewsBlogAPI.Data.Repository.Interfaces;
 
 namespace NewsBlogAPI.Data.Services
 {
@@ -14,7 +14,7 @@ namespace NewsBlogAPI.Data.Services
             services.AddScoped<INewsRepository, NewsRepository>();
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlServer(dbConnectionString);
+                options.UseNpgsql(dbConnectionString);
                 options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
             services.BuildServiceProvider().GetService<DataContext>().Database.Migrate();

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using NewsBlogAPI.Data;
-using NewsBlogAPI.Data.Interfaces;
+using NewsBlogAPI.Data.Repository.Interfaces;
 using NewsBlogAPI.Data.Services;
 using NewsBlogAPI.Models;
 using Swashbuckle.AspNetCore.Annotations;

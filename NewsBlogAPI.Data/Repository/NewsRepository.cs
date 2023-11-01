@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NewsBlogAPI.Data.Interfaces;
+using NewsBlogAPI.Data.Repository.Interfaces;
 using NewsBlogAPI.Data.Services;
 
 namespace NewsBlogAPI.Data.Repository
@@ -26,7 +26,7 @@ namespace NewsBlogAPI.Data.Repository
 
         public async Task<IList<News>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.News.ToListAsync();
+            return await _context.News.OrderByDescending(d => d.Created_at).ToListAsync();
         }
 
         public async Task<News> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
@@ -36,7 +36,12 @@ namespace NewsBlogAPI.Data.Repository
 
         public async Task<IList<News>> GetByTimePeriodListAsync(DateTime startDate, DateTime endDate, CancellationToken cancellationToken = default)
         {
-           return await _context.News.Where(d => d.Created_at >= startDate && d.Created_at <= endDate).ToListAsync(cancellationToken);
+            DateTime utcStartDate = startDate.ToUniversalTime();
+            DateTime utcEndDate = endDate.ToUniversalTime();
+            return await _context.News
+                .Where(d => d.Created_at >= utcStartDate && d.Created_at <= utcEndDate)
+                .OrderBy(d => d.Created_at)
+                .ToListAsync(cancellationToken);
 
         }
 

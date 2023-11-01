@@ -15,13 +15,13 @@ namespace NewsBlogAPI.Data
         /// <summary>
         /// Название новости
         /// </summary>
-        [Column(TypeName = "nvarchar(255)")]
+        [StringLength(255)]
         public string Title { get; set; }
 
         /// <summary>
         /// Описание новости
         /// </summary>
-        [Column(TypeName = "nvarchar(500)")]
+        [StringLength(100)]
         public string Desctiption { get; set; }
 
         /// <summary>
